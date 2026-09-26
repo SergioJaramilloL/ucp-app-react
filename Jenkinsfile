@@ -1,32 +1,30 @@
 pipeline {
     agent any
 
+    // Revisa GitHub cada 2 minutos en busca de cambios
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
+
     tools {
-        nodejs 'Node_26' // Nombre definido en Global Tool Configuration en Jenkins
+        nodejs 'Node_26'
     }
 
     stages {
-        // Etapa 1: Checkout del código desde GitHub
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SergioJaramilloL/ucp-app-react'
+                git branch: 'main', url: 'https://github.com/SergioJaramilloL/ucp-app-react.git'
             }
         }
-
-        // Etapa 2: Instalar dependencias y build del proyecto
         stage('Build') {
             steps {
                 sh 'npm install'
-                sh 'npm run build' // Ejecuta el build de React
+                sh 'npm run build'
             }
         }
-
-        // Etapa 3: Ejecutar pruebas unitarias
         stage('Unit Tests') {
             steps {
-                // Ejecuta pruebas sin modo interactivo y guarda el resultado
                 sh 'npm test -- --watchAll=false --silent > test-output.txt || true'
-                // Muestra el reporte simple en la consola
                 sh 'cat test-output.txt'
             }
             post {
@@ -37,7 +35,6 @@ pipeline {
         }
     }
 
-    // Post-acciones generales
     post {
         success {
             echo '¡Pipeline ejecutado con éxito!'
