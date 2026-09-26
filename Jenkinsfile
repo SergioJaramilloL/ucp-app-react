@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'Node_26'
+        nodejs 'Node 26'
     }
 
     stages {
@@ -30,12 +30,17 @@ pipeline {
         }
     }
 
+    // Configuración para el envío de correos al finalizar el build
     post {
         success {
-            echo '¡Pipeline ejecutado con éxito!'
+            mail to: 'sergio.jaramillo@ucp.edu.co',
+                 subject: "SUCCESSFUL BUILD: Job '${env.JOB_NAME}' [${env.BUILD_NUMBER}]",
+                 body: "El pipeline finalizó exitosamente.\n\nPuedes revisar los detalles aquí: ${env.BUILD_URL}"
         }
         failure {
-            echo 'Pipeline fallido. Revisar logs.'
+            mail to: 'sergio.jaramillo@ucp.edu.co',
+                 subject: "FAILED BUILD: Job '${env.JOB_NAME}' [${env.BUILD_NUMBER}]",
+                 body: "Ocurrió un error en la ejecución del pipeline.\n\nRevisa la salida de consola aquí: ${env.BUILD_URL}console"
         }
     }
 }
