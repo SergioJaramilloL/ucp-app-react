@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'Node_24' // Nombre definido en Global Tool Configuration en Jenkins
+        nodejs 'Node_26' // Nombre definido en Global Tool Configuration en Jenkins
     }
 
     stages {
