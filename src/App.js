@@ -7,7 +7,7 @@ function App() {
       <h1>Especialización en Desarrollo de Software</h1>
       <p>Listado de integrantes - Proceso de Desarrollo de Software I</p>
       <p>profe: Andrés Mauricio Martinez Hincapie</p>z
-      <p>Alumno: Sergio Jaramillo L</p>z
+      <p>Alumno: Sergio Jaramillo Luna</p>z
     </div>
   );
 }
