@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    // Revisa GitHub cada 2 minutos en busca de cambios
-    triggers {
-        pollSCM('H/2 * * * *')
-    }
-
     tools {
         nodejs 'Node_26'
     }
